@@ -1,0 +1,47 @@
+/**
+ * Humaride Robotics Color Palette
+ * Theme colors for Physical AI & Humanoid Robotics textbook
+ */
+
+:root {
+  /* Primary Colors */
+  --hr-cyan-neon: #00F0FF;
+  --hr-magenta-neon: #FF2A6D;
+
+  /* Background Colors */
+  --hr-dark-bg: #0A0A0F;
+  --hr-light-bg: #F8F9FB;
+  --hr-card-dark: #12131A;
+
+  /* Text Colors */
+  --hr-text-dark: #D6D6D6;
+  --hr-text-light: #2A2A2A;
+
+  /* Utility Colors */
+  --hr-border-dark: rgba(0, 240, 255, 0.2);
+  --hr-border-light: rgba(0, 240, 255, 0.3);
+
+  /* Glass-morphism */
+  --hr-glass-bg-dark: rgba(18, 19, 26, 0.6);
+  --hr-glass-bg-light: rgba(255, 255, 255, 0.8);
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] {
+  --hr-primary: var(--hr-cyan-neon);
+  --hr-bg: var(--hr-dark-bg);
+  --hr-text: var(--hr-text-dark);
+  --hr-card-bg: var(--hr-card-dark);
+  --hr-border: var(--hr-border-dark);
+  --hr-glass-bg: var(--hr-glass-bg-dark);
+}
+
+/* Light mode overrides */
+[data-theme='light'] {
+  --hr-primary: var(--hr-cyan-neon);
+  --hr-bg: var(--hr-light-bg);
+  --hr-text: var(--hr-text-light);
+  --hr-card-bg: #FFFFFF;
+  --hr-border: var(--hr-border-light);
+  --hr-glass-bg: var(--hr-glass-bg-light);
+}

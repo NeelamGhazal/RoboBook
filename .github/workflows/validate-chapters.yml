@@ -1,0 +1,153 @@
+name: Validate Textbook Chapters
+
+on:
+  push:
+    branches: [main, 002-textbook]
+    paths:
+      - 'website/docs/**/*.md'
+      - '.docker/textbook-validator/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'website/docs/**/*.md'
+      - '.docker/textbook-validator/**'
+
+jobs:
+  validate-chapters:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install code quality tools
+        run: |
+          pip install black==23.12.1 flake8==7.0.0
+
+      - name: Find and validate Python code in chapters
+        run: |
+          echo "Validating Python code blocks in textbook chapters..."
+
+          # Find all markdown files in docs/
+          CHAPTER_FILES=$(find website/docs -name "*.md" -type f)
+
+          if [ -z "$CHAPTER_FILES" ]; then
+            echo "No markdown files found to validate"
+            exit 0
+          fi
+
+          FAILED_FILES=()
+
+          for CHAPTER in $CHAPTER_FILES; do
+            echo "Processing: $CHAPTER"
+
+            # Extract Python code blocks
+            TEMP_CODE=$(mktemp --suffix=.py)
+            grep -Pzo '```python\n\K(.|\n)*?(?=\n```)' "$CHAPTER" > "$TEMP_CODE" 2>/dev/null || {
+              echo "  ⚠️  No Python code blocks found"
+              rm "$TEMP_CODE"
+              continue
+            }
+
+            if [ ! -s "$TEMP_CODE" ]; then
+              echo "  ⚠️  Empty code blocks"
+              rm "$TEMP_CODE"
+              continue
+            fi
+
+            # Check formatting with black
+            echo "  Checking PEP 8 formatting..."
+            if ! black --check --quiet "$TEMP_CODE" 2>&1; then
+              echo "  ❌ Black formatting failed for $CHAPTER"
+              black --diff "$TEMP_CODE"
+              FAILED_FILES+=("$CHAPTER (formatting)")
+            fi
+
+            # Lint with flake8
+            echo "  Linting with flake8..."
+            if ! flake8 "$TEMP_CODE" 2>&1; then
+              echo "  ❌ Flake8 linting failed for $CHAPTER"
+              FAILED_FILES+=("$CHAPTER (linting)")
+            fi
+
+            rm "$TEMP_CODE"
+            echo "  ✅ Validation passed"
+          done
+
+          if [ ${#FAILED_FILES[@]} -gt 0 ]; then
+            echo ""
+            echo "❌ Validation failed for the following chapters:"
+            printf '%s\n' "${FAILED_FILES[@]}"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ All chapters passed validation"
+
+      - name: Build Docusaurus site
+        run: |
+          cd website
+          npm ci
+          npm run build
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Check for broken links
+        run: |
+          cd website
+          npx docusaurus build --out-dir build-test 2>&1 | tee build.log
+          if grep -q "Docusaurus found broken links" build.log; then
+            echo "❌ Broken links detected"
+            exit 1
+          fi
+          echo "✅ No broken links found"
+
+  validate-with-docker:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker validator image
+        run: |
+          cd .docker/textbook-validator
+          docker build -t textbook-validator .
+
+      - name: Validate chapters with Docker
+        run: |
+          echo "Validating chapters in Docker environment..."
+
+          # Find all markdown files
+          CHAPTER_FILES=$(find website/docs -name "*.md" -type f)
+
+          if [ -z "$CHAPTER_FILES" ]; then
+            echo "No markdown files found"
+            exit 0
+          fi
+
+          FAILED=0
+
+          for CHAPTER in $CHAPTER_FILES; do
+            echo "Validating: $CHAPTER"
+
+            # Run validation in Docker
+            if ! docker run --rm -v "$(pwd):/workspace" textbook-validator \
+                 /usr/local/bin/validate-chapter.sh "/workspace/$CHAPTER"; then
+              echo "❌ Docker validation failed for $CHAPTER"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          if [ $FAILED -gt 0 ]; then
+            echo ""
+            echo "❌ $FAILED chapter(s) failed Docker validation"
+            exit 1
+          fi
+
+          echo "✅ All chapters passed Docker validation"

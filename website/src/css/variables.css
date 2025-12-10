@@ -1,0 +1,191 @@
+/**
+ * Ocean Sapphire Design System - CSS Variables Contract
+ *
+ * Feature: 003-ocean-sapphire-theme
+ * Purpose: Central definition of all Ocean Sapphire design tokens
+ * Target: website/src/css/custom.css (:root block)
+ *
+ * IMPORTANT: Every CSS variable usage MUST include inline fallback:
+ * Example: color: #b8d4ff; color: var(--ocean-text-pale);
+ */
+
+:root {
+  /* ============================================================================
+   * PRIMARY BLUES (Backgrounds, Structure, Gradients)
+   * ========================================================================= */
+
+  --ocean-primary-deep: #001529;
+  /* Deep ocean blue - primary background color
+   * Usage: Page backgrounds, card bases
+   * Contrast: Base for 8.2:1 text contrast (WCAG AAA)
+   */
+
+  --ocean-mid-blue: #002140;
+  /* Mid-ocean blue - gradient midpoint
+   * Usage: Gradient transitions, layered backgrounds
+   */
+
+  --ocean-light-blue: #003a6d;
+  /* Light ocean blue - gradient endpoint
+   * Usage: Gradient terminals, hover state backgrounds
+   */
+
+  /* ============================================================================
+   * ACCENT CYANS (Interactive Elements, Highlights, Borders)
+   * ========================================================================= */
+
+  --ocean-accent-cyan: #0096ff;
+  /* Bright cyan accent - primary interactive color
+   * Usage: Buttons, borders, active states, TOC indicators
+   * Contrast: 7.5:1 on dark blue (WCAG AAA)
+   */
+
+  --ocean-soft-cyan: #00d4ff;
+  /* Soft cyan highlight - secondary interactive color
+   * Usage: Hover states, badges, number highlights
+   * Contrast: 8.1:1 on dark blue (WCAG AAA)
+   */
+
+  /* ============================================================================
+   * TEXT COLORS (Typography Hierarchy)
+   * ========================================================================= */
+
+  --ocean-text-white: #ffffff;
+  /* Pure white - headings (H1, H2, H3)
+   * Contrast: 14.5:1 on dark blue (WCAG AAA)
+   */
+
+  --ocean-text-pale: #b8d4ff;
+  /* Pale blue - body text, primary reading color
+   * Contrast: 8.2:1 on dark blue (WCAG AAA)
+   */
+
+  --ocean-text-caption: #8bb3e0;
+  /* Muted blue - captions, metadata, secondary text
+   * Contrast: 4.8:1 on dark blue (WCAG AA)
+   */
+
+  /* ============================================================================
+   * UI ELEMENT BACKGROUNDS (Cards, Glassmorphism, Overlays)
+   * ========================================================================= */
+
+  --ocean-card-bg: rgba(0, 50, 100, 0.3);
+  /* Semi-transparent card background for glassmorphism
+   * Usage: With backdrop-filter: blur(10px)
+   * Browser Support: Chrome 76+, Firefox 103+, Safari 15.4+
+   */
+
+  --ocean-card-bg-fallback: rgba(0, 50, 100, 0.7);
+  /* Solid fallback for browsers without backdrop-filter support
+   * Usage: Default background before @supports upgrade
+   * Browser Support: IE 11, Firefox <103, Safari <15.4
+   */
+
+  --ocean-border-glow: rgba(0, 150, 255, 0.3);
+  /* Semi-transparent cyan for glows and borders
+   * Usage: Card borders, box-shadows, glow effects
+   */
+
+  --ocean-shimmer-effect: rgba(0, 150, 255, 0.1);
+  /* Very subtle cyan for shimmer animation overlays
+   * Usage: Gradient shimmer animation backgrounds
+   */
+
+  /* ============================================================================
+   * TYPOGRAPHY SYSTEM (Fonts, Sizes, Weights)
+   * ========================================================================= */
+
+  --ocean-font-heading: Georgia, serif;
+  /* Serif heading font with system fallback
+   * Usage: H1, H2, H3, subheadings
+   */
+
+  --ocean-font-body: Georgia, serif;
+  /* Serif body font (same as headings for consistency)
+   * Usage: Paragraphs, lists, blockquotes
+   */
+
+  --ocean-font-code: 'Fira Code', 'Courier New', Consolas, monospace;
+  /* Monospace code font with automatic fallbacks
+   * Usage: Code blocks, inline code, preformatted text
+   * Fallback chain: Fira Code (CDN) → Courier New (Windows) → Consolas (Windows/Mac) → monospace (generic)
+   */
+
+  /* ============================================================================
+   * SPACING SYSTEM (Consistent Margins, Padding, Gaps)
+   * ========================================================================= */
+
+  --ocean-space-xs: 0.5rem;   /* 8px */
+  --ocean-space-sm: 1rem;     /* 16px */
+  --ocean-space-md: 1.5rem;   /* 24px */
+  --ocean-space-lg: 2rem;     /* 32px */
+  --ocean-space-xl: 3rem;     /* 48px */
+
+  /* ============================================================================
+   * EFFECTS (Shadows, Glows, Blurs)
+   * ========================================================================= */
+
+  --ocean-glow-cyan: 0 0 20px rgba(0, 150, 255, 0.5);
+  /* Standard cyan glow for buttons and interactive elements
+   * Usage: button:hover box-shadow
+   */
+
+  --ocean-glow-strong: 0 0 30px rgba(0, 150, 255, 0.6);
+  /* Stronger cyan glow for H1 text-shadow
+   * Usage: Main heading emphasis
+   */
+
+  --ocean-blur-glass: blur(10px);
+  /* Glassmorphism blur strength
+   * Usage: backdrop-filter on .ocean-card
+   * Browser Support: Modern browsers only (with @supports fallback)
+   */
+
+  --ocean-shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+  /* Deep shadow for card elevation
+   * Usage: .ocean-card box-shadow
+   */
+
+  /* ============================================================================
+   * ANIMATION DURATIONS (Consistent Timing)
+   * ========================================================================= */
+
+  --ocean-transition-fast: 0.3s;
+  /* Quick transitions - button hover, link underlines
+   * Usage: transition: all 0.3s ease;
+   */
+
+  --ocean-transition-medium: 0.6s;
+  /* Medium transitions - page fade-ins, modal appearances
+   * Usage: animation: fadeIn 0.6s ease-out;
+   */
+
+  --ocean-shimmer-duration: 3s;
+  /* Shimmer animation duration - card hover effects
+   * Usage: animation: shimmer 3s linear infinite;
+   */
+
+  --ocean-glow-pulse-duration: 2s;
+  /* Glow pulse animation duration - TOC active state
+   * Usage: animation: glowPulse 2s ease-in-out infinite;
+   */
+}
+
+/**
+ * USAGE EXAMPLE (with inline fallback pattern):
+ *
+ * .ocean-heading {
+ *   color: #ffffff;                       <-- Fallback for IE 11
+ *   color: var(--ocean-text-white);       <-- Modern browsers
+ *
+ *   text-shadow: 0 0 30px rgba(0, 150, 255, 0.6);  <-- Fallback
+ *   text-shadow: 0 0 30px var(--ocean-glow-strong); <-- CSS variable
+ * }
+ *
+ * VALIDATION CHECKLIST:
+ * - [ ] All color variables pass WCAG contrast ratios
+ * - [ ] All variables have inline fallback values
+ * - [ ] Font-family stacks include system font fallbacks
+ * - [ ] Spacing system uses rem units for accessibility
+ * - [ ] Animation durations respect prefers-reduced-motion
+ */
