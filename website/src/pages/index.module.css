@@ -1,0 +1,106 @@
+/**
+ * Landing Page Layout Styles
+ * Implements responsive 50/50 split layout (desktop) and stacked layout (mobile)
+ */
+
+.landingPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--hr-dark-bg, #0A0A0F);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Left section: 3D cube placeholder (50% width on desktop) */
+.leftSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Right section: Hero content (50% width on desktop) */
+.rightSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Placeholder for AnimatedCube */
+.cubePlaceholder {
+  width: 100%;
+  max-width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(0, 240, 255, 0.3);
+  border-radius: 12px;
+}
+
+.placeholderText {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: rgba(0, 240, 255, 0.6);
+  text-align: center;
+}
+
+/* Mobile responsive: Stack vertically */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse; /* Hero on top, cube below */
+  }
+
+  .leftSection,
+  .rightSection {
+    flex: none;
+    width: 100%;
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .leftSection {
+    display: none; /* Hide 3D cube placeholder on mobile (per spec) */
+  }
+
+  .rightSection {
+    min-height: 100vh; /* Hero takes full viewport on mobile */
+  }
+}
+
+/* Light mode support */
+@media (prefers-color-scheme: light) {
+  .landingPage {
+    background-color: var(--hr-light-bg, #F8F9FB);
+  }
+}
+
+/* Extreme viewport handling */
+@media (max-width: 320px) {
+  .leftSection,
+  .rightSection {
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container {
+    max-width: 2000px;
+  }
+}

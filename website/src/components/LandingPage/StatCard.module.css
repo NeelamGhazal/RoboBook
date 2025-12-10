@@ -1,0 +1,71 @@
+/**
+ * StatCard styles with glass-morphism effect
+ * Implements backdrop-filter with Firefox fallback
+ */
+
+.card {
+  background: rgba(18, 19, 26, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Firefox <103 fallback (no backdrop-filter support) */
+@supports not (backdrop-filter: blur(10px)) {
+  .card {
+    background: rgba(18, 19, 26, 0.9);
+  }
+}
+
+.value {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #00F0FF;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+.title {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #D6D6D6;
+  margin: 0;
+}
+
+/* Light mode support */
+@media (prefers-color-scheme: light) {
+  .card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+
+  @supports not (backdrop-filter: blur(10px)) {
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  .title {
+    color: #2A2A2A;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  .value {
+    font-size: 28px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+}

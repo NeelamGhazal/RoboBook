@@ -1,0 +1,691 @@
+/**
+ * Tailwind CSS directives
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Import Humaride Robotics theme colors */
+@import '../styles/theme-colors.css';
+
+/* Import Ocean Sapphire Design System */
+@import './animations.css';
+@import './glassmorphism.css';
+
+/* You can override the default Infima variables here. */
+:root {
+  /* Use Humaride Robotics cyan as primary color */
+  --ifm-color-primary: #00F0FF;
+  --ifm-color-primary-dark: #00d8e6;
+  --ifm-color-primary-darker: #00ccd9;
+  --ifm-color-primary-darkest: #00a8b3;
+  --ifm-color-primary-light: #1af3ff;
+  --ifm-color-primary-lighter: #33f5ff;
+  --ifm-color-primary-lightest: #66f8ff;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Font families */
+  --ifm-font-family-base: 'Exo 2', sans-serif;
+  --ifm-heading-font-family: 'Exo 2', sans-serif;
+
+  /* ============================================================================
+   * OCEAN SAPPHIRE DESIGN SYSTEM - CSS VARIABLES
+   * Feature: 003-ocean-sapphire-theme
+   * ========================================================================= */
+
+  /* PRIMARY BLUES (Backgrounds, Structure, Gradients) */
+  --ocean-primary-deep: #001529;
+  --ocean-mid-blue: #002140;
+  --ocean-light-blue: #003a6d;
+
+  /* ACCENT CYANS (Interactive Elements, Highlights, Borders) */
+  --ocean-accent-cyan: #0096ff;
+  --ocean-soft-cyan: #00d4ff;
+
+  /* TEXT COLORS (Typography Hierarchy) */
+  --ocean-text-white: #ffffff;
+  --ocean-text-pale: #b8d4ff;
+  --ocean-text-caption: #8bb3e0;
+
+  /* UI ELEMENT BACKGROUNDS (Cards, Glassmorphism, Overlays) */
+  --ocean-card-bg: rgba(0, 50, 100, 0.3);
+  --ocean-card-bg-fallback: rgba(0, 50, 100, 0.7);
+  --ocean-border-glow: rgba(0, 150, 255, 0.3);
+  --ocean-shimmer-effect: rgba(0, 150, 255, 0.1);
+
+  /* TYPOGRAPHY SYSTEM (Fonts, Sizes, Weights) */
+  --ocean-font-heading: 'Orbitron', sans-serif;
+  --ocean-font-body: 'Orbitron', sans-serif;
+  --ocean-font-code: 'Fira Code', 'Courier New', Consolas, monospace;
+
+  /* SPACING SYSTEM (Consistent Margins, Padding, Gaps) */
+  --ocean-space-xs: 0.5rem;
+  --ocean-space-sm: 1rem;
+  --ocean-space-md: 1.5rem;
+  --ocean-space-lg: 2rem;
+  --ocean-space-xl: 3rem;
+
+  /* EFFECTS (Shadows, Glows, Blurs) */
+  --ocean-glow-cyan: 0 0 20px rgba(0, 150, 255, 0.5);
+  --ocean-glow-strong: 0 0 30px rgba(0, 150, 255, 0.6);
+  --ocean-blur-glass: blur(10px);
+  --ocean-shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+  /* ANIMATION DURATIONS (Consistent Timing) */
+  --ocean-transition-fast: 0.3s;
+  --ocean-transition-medium: 0.6s;
+  --ocean-shimmer-duration: 3s;
+  --ocean-glow-pulse-duration: 2s;
+
+  /* ============================================================================
+   * FEATURE 004: THEME TOGGLE - DARK THEME (DEFAULT)
+   * Constitution §XX - Light/Dark Theme Toggle
+   * ========================================================================= */
+  --bg-primary: #001529;
+  --bg-secondary: #002140;
+  --text-primary: #b8d4ff;
+  --text-secondary: #80c2ff;
+  --accent-cyan: #0096ff;
+  --accent-bright: #00d4ff;
+  --card-bg: rgba(0, 50, 100, 0.3);
+  --border-color: rgba(0, 150, 255, 0.3);
+  --shimmer-color: rgba(0, 150, 255, 0.1);
+}
+
+/* ============================================================================
+ * FEATURE 004: THEME TOGGLE - LIGHT THEME
+ * Constitution §XX - Light Theme Palette
+ * ========================================================================= */
+:root[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --text-primary: #001529;
+  --text-secondary: #001529;
+  --accent-cyan: #0096ff;
+  --accent-bright: #0077cc;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --border-color: rgba(0, 150, 255, 0.3);
+  --shimmer-color: rgba(0, 150, 255, 0.1);
+}
+
+/* ============================================================================
+ * FEATURE 004: THEME TRANSITIONS (200ms ease-in-out)
+ * Constitution §XX - Smooth color transitions only
+ * ========================================================================= */
+* {
+  transition: background-color 200ms ease-in-out,
+              color 200ms ease-in-out,
+              border-color 200ms ease-in-out;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #00F0FF;
+  --ifm-color-primary-dark: #00d8e6;
+  --ifm-color-primary-darker: #00ccd9;
+  --ifm-color-primary-darkest: #00a8b3;
+  --ifm-color-primary-light: #1af3ff;
+  --ifm-color-primary-lighter: #33f5ff;
+  --ifm-color-primary-lightest: #66f8ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* T016: Override Docusaurus CSS variables with Ocean Sapphire colors */
+  --ifm-background-color: #001529;
+  --ifm-background-color: var(--ocean-primary-deep);
+
+  --ifm-font-color-base: #b8d4ff;
+  --ifm-font-color-base: var(--ocean-text-pale);
+}
+
+/* ============================================================================
+ * T015: Ocean Sapphire Background Gradient
+ * ========================================================================= */
+body {
+  background: linear-gradient(
+    180deg,
+    #001529 0%,
+    #002140 50%,
+    #003a6d 100%
+  );
+  background: linear-gradient(
+    180deg,
+    var(--ocean-primary-deep) 0%,
+    var(--ocean-mid-blue) 50%,
+    var(--ocean-light-blue) 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* ============================================================================
+ * T017: Orbitron Typography System
+ * ========================================================================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif;
+  font-family: var(--ocean-font-heading);
+  color: #ffffff;
+  color: var(--ocean-text-white);
+}
+
+body,
+p,
+li,
+a,
+span,
+div {
+  font-family: 'Orbitron', sans-serif;
+  font-family: var(--ocean-font-body);
+}
+
+/* ============================================================================
+ * FEATURE 004: FEATURE CARDS SECTION (Constitution §VIII)
+ * Responsive grid, glassmorphism, shimmer effects
+ * ========================================================================= */
+
+/* Features Section Container */
+.features-section {
+  padding: 80px 24px;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+
+.features-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Features Section Heading (Exo 2 2.5rem) */
+.features-heading {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 1.5rem;
+}
+
+/* Features Section Description (1.1rem, max-width 900px) */
+.features-description {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-primary, #b8d4ff);
+  max-width: 900px;
+  margin-bottom: 4rem;
+}
+
+/* Features Grid - Responsive (3/2/1 columns) */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Tablet: 2 columns (768-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Desktop: 3 columns (≥1024px) */
+@media (min-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Individual Feature Card */
+.feature-card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 220px;
+  background: var(--card-bg, rgba(0, 50, 100, 0.3));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color, rgba(0, 150, 255, 0.3));
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 50px rgba(0, 150, 255, 0.3);
+  border-color: rgba(0, 150, 255, 0.5);
+}
+
+/* Feature Card Image (40%, min 180px, 3:2 ratio) */
+.feature-card-image {
+  width: 40%;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 16px;
+}
+
+.feature-card-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Feature Card Content (60%) */
+.feature-card-content {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-card-title {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary, #b8d4ff);
+  margin-bottom: 0.75rem;
+}
+
+.feature-card-description {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-primary, #b8d4ff);
+}
+
+/* Shimmer Effect (3s infinite on hover) */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 212, 255, 0.3),
+    transparent
+  );
+  height: 100%;
+  width: 200%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+  animation: shimmer-sweep 3s linear infinite;
+}
+
+/* Disable animations if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card::before {
+    animation: none !important;
+  }
+
+  .feature-card {
+    transition: none;
+  }
+}
+
+/* Mobile: Stack cards vertically */
+@media (max-width: 767px) {
+  .feature-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .feature-card-image {
+    width: 100%;
+    min-width: 100%;
+    padding-right: 0;
+    padding-bottom: 16px;
+  }
+
+  .feature-card-content {
+    width: 100%;
+  }
+}
+
+/* ============================================================================
+ * FEATURE 004: HERO SECTION LAYOUT (Constitution §VIII)
+ * Responsive layouts: Desktop 50/50, Tablet 60/40, Mobile stacked
+ * ========================================================================= */
+
+/* Hero Section Container */
+.hero-section {
+  padding: 10px 24px 80px 24px;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* Use body gradient from Ocean Sapphire */
+}
+
+/* Hero Inner Container */
+.hero-container {
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Hero Content (Text) */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Hero Image Container */
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-image .robot-image {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* Desktop layout: 50/50 split (≥1024px) */
+@media (min-width: 1024px) {
+  .hero-container {
+    flex-direction: row;
+    margin-left: 40px;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    width: 50%;
+    max-width: 580px;
+    text-align: left;
+  }
+
+  .hero-image {
+    width: 50%;
+    justify-content: flex-start;
+  }
+
+  .hero-paragraph {
+    font-size: 1.8rem;
+  }
+}
+
+/* Tablet layout: 60/40 split (768px-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-container {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    width: 60%;
+    text-align: left;
+  }
+
+  .hero-image {
+    width: 40%;
+  }
+
+  .hero-paragraph {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile layout: stacked (<768px) */
+@media (max-width: 767px) {
+  .hero-section {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  .hero-container {
+    flex-direction: column;
+  }
+
+  .hero-content {
+    width: 100%;
+    margin-bottom: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-image {
+    width: 100%;
+  }
+
+  .hero-paragraph {
+    font-size: 1.3rem;
+  }
+}
+
+/* Button Styles */
+.hero-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 60px;
+  border: 2px solid var(--ocean-accent-cyan, #0096ff);
+  border-radius: 8px;
+  color: white;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.hero-cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
+}
+
+/* ============================================================================
+ * FEATURE 004: NAVBAR (Constitution §VIII)
+ * Fixed navbar with exact dimensions and glassmorphism
+ * ========================================================================= */
+
+/* Landing Page Navbar */
+.landing-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  z-index: 1000;
+  background: var(--card-bg, rgba(0, 50, 100, 0.3));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color, rgba(0, 150, 255, 0.3));
+}
+
+.navbar-container {
+  max-width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left: Logo + Brand + Menu Items */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+}
+
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-logo-link:hover {
+  opacity: 0.8;
+}
+
+.navbar-logo-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.navbar-brand-text {
+  font-family: 'Audiowide', cursive;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-primary, #ffffff);
+  white-space: nowrap;
+}
+
+.navbar-menu-item {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary, #b8d4ff);
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navbar-menu-item:hover {
+  color: var(--accent-cyan, #0096ff);
+  text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+}
+
+.navbar-separator {
+  font-size: 17px;
+  color: var(--text-primary, #8bb3e0);
+}
+
+/* Right: Controls */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-control {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-primary, #b8d4ff);
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navbar-control:hover {
+  color: var(--accent-cyan, #0096ff);
+  transform: scale(1.1);
+}
+
+.language-toggle .language-text {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.theme-toggle .theme-icon,
+.github-link .github-icon {
+  font-size: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+  .navbar-center {
+    gap: 16px;
+  }
+
+  .navbar-menu-item {
+    font-size: 15px;
+  }
+
+  .navbar-separator {
+    font-size: 15px;
+  }
+
+  .navbar-right {
+    gap: 16px;
+  }
+}
+
+/* Responsive text sizing */
+.hero-heading {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--text-primary, white);
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+}
+
+.hero-paragraph {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--text-primary, #b8d4ff);
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 400;
+  max-width: 520px;
+}
+
+@media (min-width: 768px) {
+  .hero-heading {
+    font-size: 3rem;
+  }
+  .hero-paragraph {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-heading {
+    font-size: 3rem;
+  }
+  .hero-paragraph {
+    font-size: 1.rem;
+  }
+}

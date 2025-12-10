@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-docusaurus@latest website classic --typescript)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "Bash(grep:*)",
+      "WebSearch",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(git rev-parse:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

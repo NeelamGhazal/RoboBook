@@ -1,0 +1,103 @@
+/**
+ * Ocean Sapphire Design System - Glassmorphism Styles
+ *
+ * Feature: 003-ocean-sapphire-theme
+ * Purpose: Reusable glassmorphism card styles with fallbacks
+ *
+ * Classes:
+ * - .ocean-card: Base glassmorphism card with backdrop-filter
+ * - .ocean-card--shimmer: Shimmer animation variant
+ * - .ocean-card--clickable: Interactive card with hover effects
+ *
+ * Browser Support:
+ * - Modern: Chrome 76+, Firefox 103+, Safari 15.4+ (backdrop-filter)
+ * - Fallback: IE 11, Firefox <103, Safari <15.4 (solid background)
+ */
+
+/* T014: Base glassmorphism card with @supports fallback */
+.ocean-card {
+  /* Fallback for browsers without backdrop-filter support */
+  background: rgba(0, 50, 100, 0.7);
+  background: var(--ocean-card-bg-fallback);
+
+  border: 1px solid rgba(0, 150, 255, 0.3);
+  border: 1px solid var(--ocean-border-glow);
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--ocean-shadow-card);
+
+  padding: 2rem;
+  padding: var(--ocean-space-lg);
+
+  transition: all 0.3s ease;
+  transition: all var(--ocean-transition-fast) ease;
+}
+
+/* Modern browsers with backdrop-filter support */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .ocean-card {
+    background: rgba(0, 50, 100, 0.3);
+    background: var(--ocean-card-bg);
+
+    backdrop-filter: blur(10px);
+    backdrop-filter: var(--ocean-blur-glass);
+
+    -webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: var(--ocean-blur-glass);
+  }
+}
+
+/* Shimmer animation variant */
+.ocean-card--shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.ocean-card--shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 212, 255, 0.3),
+    transparent
+  );
+  height: 100%;
+  width: 200%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transition: opacity var(--ocean-transition-fast) ease;
+  pointer-events: none;
+}
+
+.ocean-card--shimmer:hover::before {
+  opacity: 1;
+  animation: shimmer-sweep 3s linear infinite;
+}
+
+/* T010: Shimmer Sweep Animation - 3s infinite gradient sweep for card hover effects */
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Clickable/interactive card variant */
+.ocean-card--clickable {
+  cursor: pointer;
+}
+
+.ocean-card--clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 50px rgba(0, 150, 255, 0.3);
+  border-color: rgba(0, 150, 255, 0.5);
+}

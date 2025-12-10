@@ -208,3 +208,16 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- TypeScript 5.x, React 18+, Node.js 18+ (001-landing-page)
+- N/A (static page, no data persistence) (001-landing-page)
+- Python 3.10+ (for code examples in chapters), Markdown (for content), Mermaid (for diagrams) + Docusaurus 3.x (publishing platform), ROS 2 Humble (robotics framework for examples), Gazebo Fortress, Unity 2021.3 LTS, NVIDIA Isaac Sim, OpenAI Whisper, LLM access (OpenAI API or Ollama/LLaMA) (002-textbook)
+- Git repository for markdown files, static file hosting for Docusaurus build output (GitHub Pages) (002-textbook)
+- TypeScript 5.x (React components), CSS3 (styling), JavaScript (Three.js animations) (003-ocean-sapphire-theme)
+- N/A (static site, no persistent storage) (003-ocean-sapphire-theme)
+- TypeScript 5.x, React 18+, Node.js 18+ + Docusaurus 3.x, React 18+, CSS3 (no additional UI libraries) (004-landing-page-redesign)
+- N/A (static site, React state only for theme toggle) (004-landing-page-redesign)
+
+## Recent Changes
+- 001-landing-page: Added TypeScript 5.x, React 18+, Node.js 18+
